@@ -12,6 +12,8 @@ app.use(function(req, res, next) {
     next();
 });
 
+app.use('/', express.static('../client/dist'));
+
 app.use(bodyParser.json());
 
 app.use('/api/v1/builds', builds);
