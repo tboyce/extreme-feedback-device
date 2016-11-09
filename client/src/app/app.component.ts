@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let url = 'http://tb-authorize.cloudapp.net/api/v1/builds/status';
+    let url = 'http://xfd.cloudapp.net/api/v1/builds/status';
     Observable.interval(5000)
       .switchMap(() => this.http.get(url))
       .map(res => res.json())
