@@ -1,0 +1,16 @@
+<md-list>
+  <md-list-item *ngFor="let build of builds; let i = index">
+
+    <h3 md-line>
+      {{ build.name }}
+    </h3>
+
+    <p md-line style="color: #777">
+      <span>{{ build.status }}</span>
+    </p>
+
+    <md-icon md-list-icon (click)="deleteBuild(i)">delete</md-icon>
+  </md-list-item>
+</md-list>
+
+<p *ngIf="builds && builds.length === 0">No builds found</p>

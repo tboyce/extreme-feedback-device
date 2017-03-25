@@ -1,0 +1,16 @@
+<md-list>
+  <md-list-item *ngFor="let deployment of deployments; let i = index">
+
+    <h3 md-line>
+      {{ deployment.name }}
+    </h3>
+
+    <p md-line style="color: #777">
+      <span>{{ deployment.status }}</span>
+    </p>
+
+    <md-icon md-list-icon (click)="deleteDeployment(i)">delete</md-icon>
+  </md-list-item>
+</md-list>
+
+<p *ngIf="deployments && deployments.length === 0">No deployments found</p>
