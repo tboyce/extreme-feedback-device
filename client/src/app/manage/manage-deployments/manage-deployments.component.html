@@ -5,9 +5,11 @@
       {{ deployment.name }}
     </h3>
 
-    <p md-line style="color: #777">
-      <span>{{ deployment.status }}</span>
-    </p>
+    <md-chip-list>
+      <md-chip [color]="deployment.status == 'DeploymentFailed' ? 'warn' : 'primary'" selected="true">
+        {{ deployment.status }}
+      </md-chip>
+    </md-chip-list>
 
     <md-icon md-list-icon (click)="deleteDeployment(i)">delete</md-icon>
   </md-list-item>

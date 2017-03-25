@@ -2,3 +2,7 @@
   cursor: pointer;
   color: #e91e63;
 }
+
+md-list {
+  max-width: 500px;
+}

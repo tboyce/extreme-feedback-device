@@ -5,9 +5,11 @@
       {{ build.name }}
     </h3>
 
-    <p md-line style="color: #777">
-      <span>{{ build.status }}</span>
-    </p>
+    <md-chip-list>
+      <md-chip [color]="build.status == 'failed' ? 'warn' : 'primary'" selected="true">
+        {{ build.status }}
+      </md-chip>
+    </md-chip-list>
 
     <md-icon md-list-icon (click)="deleteBuild(i)">delete</md-icon>
   </md-list-item>
