@@ -31,7 +31,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpModule,
     MaterialModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes, { useHash: true })
   ],
   providers: [],
   bootstrap: [AppComponent]

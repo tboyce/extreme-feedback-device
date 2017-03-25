@@ -11,7 +11,7 @@ storage.init().then(function () {
 
     router.get('/', function (req, res) {
         storage.getItem(storageKey).then(function (maintenance) {
-            return res.json(maintenance);
+            return res.json(maintenance || false);
         });
     });
 
