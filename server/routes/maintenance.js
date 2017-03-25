@@ -7,32 +7,31 @@ const router = express.Router();
 const jsonParser = bodyParser.json();
 
 storage.init().then(function () {
-    const storageKey = 'v1/maintenance';
-    let maintenance;
-
-    storage.getItem(storageKey).then(function (item) {
-        maintenance = item || false;
-    });
+    const storageKey = 'maintenance';
 
     router.get('/', function (req, res) {
-        return res.json(maintenance);
+        storage.getItem(storageKey).then(function (maintenance) {
+            return res.json(maintenance);
+        });
     });
 
     router.post('/', jsonParser, function (req, res) {
-        maintenance = true;
+        let maintenance = true;
         storage.setItem(storageKey, maintenance);
         res.sendStatus(200);
     });
 
     router.delete('/', jsonParser, function (req, res) {
-        maintenance = false;
+        let maintenance = false;
         storage.setItem(storageKey, maintenance);
         res.sendStatus(200);
     });
 
     router.get('/status', function (req, res) {
-        return res.json({
-            status: maintenance
+        storage.getItem(storageKey).then(function (maintenance) {
+            return res.json({
+                status: maintenance
+            });
         });
     });
 });
