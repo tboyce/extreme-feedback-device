@@ -18,6 +18,11 @@ router.post('/', jsonParser, function(req, res, next) {
     res.sendStatus(200);
 });
 
+router.delete('/:id', function(req, res, next) {
+    delete builds[req.params.id];
+    res.sendStatus(200);
+});
+
 router.get('/status', function(req, res, next) {
     var failed = _.filter(deployments, {'Category': 'DeploymentFailed'});
     if (failed.length === 0) {

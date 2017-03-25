@@ -18,18 +18,26 @@ router.post('/', jsonParser, function(req, res, next) {
     res.sendStatus(200);
 });
 
+router.delete('/:id', function(req, res, next) {
+    delete builds[req.params.id];
+    res.sendStatus(200);
+});
+
 router.get('/status', function(req, res, next) {
     var failedBuild = _.some(builds, function(b) {
         return b.resource.status === 'failed' &&
-          !/test/i.test(b.resource.definition.name);
+          !(/test/i.test(b.resource.definition.name));
     });
 
     var failedTests = _.some(builds, function(b) {
         return b.resource.status === 'failed' &&
-          /test/i.test(b.resource.definition.name);
+            (/test/i.test(b.resource.definition.name));
     });
  
-    return res.json({buildStatus: failedBuild ? 'failed' : 'success', testStatus: failedTests ? 'failed' : 'success'});
+    return res.json({
+        buildStatus: failedBuild ? 'failed' : 'success',
+        testStatus: failedTests ? 'failed' : 'success'
+    });
 });
 
 module.exports = router;

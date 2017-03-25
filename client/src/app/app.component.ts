@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import { environment } from '../environments/environment';
+
+import 'rxjs/add/observable/interval';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/map';
+
 
 @Component({
   selector: 'app-root',
@@ -9,10 +15,11 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent implements OnInit {
 
-  baseUrl = 'http://xfd.cloudapp.net/api/v1'
-  buildStatus = true;
-  deploymentStatus = true;
-  testStatus = true;
+  baseUrl = environment.API_BASE_URL;
+  buildSuccess = true;
+  deploymentSuccess = true;
+  testSuccess = true;
+  maintenance = false;
 
   constructor(private http: Http) {
   }
@@ -22,20 +29,27 @@ export class AppComponent implements OnInit {
       .switchMap(() => this.http.get(this.baseUrl + '/builds/status'))
       .map(res => res.json())
       .subscribe(res => {
-        this.buildStatus = res.buildStatus === 'success';
-        this.testStatus = res.testStatus === 'success';
+        this.buildSuccess = res.buildStatus === 'success';
+        this.testSuccess = res.testStatus === 'success';
       });
 
     Observable.interval(5000)
       .switchMap(() => this.http.get(this.baseUrl + '/deployments/status'))
       .map(res => res.json())
       .subscribe(res => {
-        this.deploymentStatus = res.status === 'success';
+        this.deploymentSuccess = res.status === 'success';
+      });
+
+    Observable.interval(5000)
+      .switchMap(() => this.http.get(this.baseUrl + '/maintenance/status'))
+      .map(res => res.json())
+      .subscribe(res => {
+        this.maintenance = res.status;
       });
   }
 
-  get overallStatus() {
-    return (this.buildStatus && this.testStatus && this.deploymentStatus);
+  get overallSuccess() {
+    return (this.buildSuccess && this.testSuccess && this.deploymentSuccess && !this.maintenance);
   }
 }
 
