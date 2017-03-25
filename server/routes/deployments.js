@@ -1,39 +1,39 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var _ = require('lodash');
-var storage = require('node-persist');
+const express = require('express');
+const bodyParser = require('body-parser');
+const _ = require('lodash');
+const storage = require('node-persist');
 
-var router = express.Router();
+const router = express.Router();
 
-var jsonParser = bodyParser.json();
+const jsonParser = bodyParser.json();
 
 storage.init().then(function () {
-    var storageKey = 'v1/deployments';
-    var deployments;
+    const storageKey = 'v1/deployments';
+    let deployments;
 
     storage.getItem(storageKey).then(function (item) {
         deployments = item || {};
     });
 
-    router.get('/', function (req, res, next) {
+    router.get('/', function (req, res) {
         return res.json(deployments);
     });
 
-    router.post('/', jsonParser, function (req, res, next) {
-        var deployment = req.body;
+    router.post('/', jsonParser, function (req, res) {
+        const deployment = req.body;
         deployments[deployment.Payload.Event.RelatedDocumentIds[1]] = deployment.Payload.Event;
         storage.setItem(storageKey, deployments);
         res.sendStatus(200);
     });
 
-    router.delete('/:id', function (req, res, next) {
+    router.delete('/:id', function (req, res) {
         delete deployments[req.params.id];
         storage.setItem(storageKey, deployments);
         res.sendStatus(200);
     });
 
-    router.get('/status', function (req, res, next) {
-        var failed = _.filter(deployments, {'Category': 'DeploymentFailed'});
+    router.get('/status', function (req, res) {
+        const failed = _.filter(deployments, {'Category': 'DeploymentFailed'});
         if (failed.length === 0) {
             return res.json({status: 'success'});
         } else {

@@ -1,37 +1,36 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var _ = require('lodash');
-var storage = require('node-persist');
+const express = require('express');
+const bodyParser = require('body-parser');
+const storage = require('node-persist');
 
-var router = express.Router();
+const router = express.Router();
 
-var jsonParser = bodyParser.json();
+const jsonParser = bodyParser.json();
 
 storage.init().then(function () {
-    var storageKey = 'v1/maintenance';
-    var maintenance;
+    const storageKey = 'v1/maintenance';
+    let maintenance;
 
     storage.getItem(storageKey).then(function (item) {
         maintenance = item || false;
     });
 
-    router.get('/', function (req, res, next) {
-        return res.json(builds);
+    router.get('/', function (req, res) {
+        return res.json(maintenance);
     });
 
-    router.post('/', jsonParser, function (req, res, next) {
+    router.post('/', jsonParser, function (req, res) {
         maintenance = true;
         storage.setItem(storageKey, maintenance);
         res.sendStatus(200);
     });
 
-    router.delete('/', jsonParser, function (req, res, next) {
+    router.delete('/', jsonParser, function (req, res) {
         maintenance = false;
         storage.setItem(storageKey, maintenance);
         res.sendStatus(200);
     });
 
-    router.get('/status', function (req, res, next) {
+    router.get('/status', function (req, res) {
         return res.json({
             status: maintenance
         });
