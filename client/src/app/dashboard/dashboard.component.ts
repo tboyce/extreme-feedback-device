@@ -25,25 +25,13 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     Observable.interval(5000)
-      .switchMap(() => this.http.get(this.baseUrl + '/builds/status'))
+      .switchMap(() => this.http.get(this.baseUrl + '/status'))
       .map(res => res.json())
       .subscribe(res => {
-        this.buildSuccess = res.buildStatus === 'success';
-        this.testSuccess = res.testStatus === 'success';
-      });
-
-    Observable.interval(5000)
-      .switchMap(() => this.http.get(this.baseUrl + '/deployments/status'))
-      .map(res => res.json())
-      .subscribe(res => {
-        this.deploymentSuccess = res.status === 'success';
-      });
-
-    Observable.interval(5000)
-      .switchMap(() => this.http.get(this.baseUrl + '/maintenance/status'))
-      .map(res => res.json())
-      .subscribe(res => {
-        this.maintenance = res.status;
+        this.buildSuccess = res.build === 'success';
+        this.testSuccess = res.test === 'success';
+        this.deploymentSuccess = res.deployment === 'success';
+        this.maintenance = res.maintenance;
       });
   }
 

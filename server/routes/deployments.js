@@ -12,14 +12,7 @@ storage.init().then(function () {
 
     router.get('/', function (req, res) {
         storage.getItem(storageKey).then(function (deployments) {
-            const response = _.map(_.values(deployments), function (deployment) {
-                return {
-                    id: deployment.RelatedDocumentIds[1],
-                    name: deployment.RelatedDocumentIds[1],
-                    status: deployment.Category
-                }
-            });
-            return res.send(response);
+            return res.send(_.values(deployments || {}));
         });
     });
 
@@ -27,7 +20,12 @@ storage.init().then(function () {
         const deployment = req.body;
         storage.getItem(storageKey).then(function (deployments) {
             deployments = deployments || {};
-            deployments[deployment.Payload.Event.RelatedDocumentIds[1]] = deployment.Payload.Event;
+            let event = deployment.Payload.Event;
+            deployments[event.RelatedDocumentIds[1]] = {
+                id: event.RelatedDocumentIds[1],
+                name: event.RelatedDocumentIds[1],
+                status: event.Category
+            };
             storage.setItem(storageKey, deployments);
             res.sendStatus(200);
         });
@@ -38,17 +36,6 @@ storage.init().then(function () {
             delete deployments[req.params.id];
             storage.setItem(storageKey, deployments);
             res.sendStatus(200);
-        });
-    });
-
-    router.get('/status', function (req, res) {
-        storage.getItem(storageKey).then(function (deployments) {
-            const failed = _.filter(deployments, {'Category': 'DeploymentFailed'});
-            if (failed.length === 0) {
-                return res.json({status: 'success'});
-            } else {
-                return res.json({status: 'failure'});
-            }
         });
     });
 });

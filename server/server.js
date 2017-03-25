@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const builds = require('./routes/builds');
 const deployments = require('./routes/deployments');
 const maintenance = require('./routes/maintenance');
+const status = require('./routes/status');
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(bodyParser.json());
 app.use('/api/v1/builds', builds);
 app.use('/api/v1/deployments', deployments);
 app.use('/api/v1/maintenance', maintenance);
+app.use('/api/v1/status', status);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
