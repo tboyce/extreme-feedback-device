@@ -1,2 +1,16 @@
-<div [style.background-color]="status === 'success' ? 'green' : 'red'" style="width: 100vw; height: 100vh;">
+<div class="tl" [class.success]="buildStatus" [class.failed]="!buildStatus">
+  <div class="title" style="margin-left: -94px">BUILD</div>
+</div>
+
+<div class="tr" [class.success]="deploymentStatus" [class.failed]="!deploymentStatus">
+  <div class="title" style="margin-left: -130px">DEPLOY</div>
+</div>
+
+<div class="bl" [class.success]="testStatus" [class.failed]="!testStatus">
+  <div class="title" style="margin-left: -82px">TEST</div>
+</div>
+
+<div class="br" [class.success]="overallStatus" [class.failed]="!overallStatus">
+  <img *ngIf="overallStatus" class="center" src="https://upload.wikimedia.org/wikipedia/commons/d/dc/Oxygen480-emotes-face-smile.svg">
+  <img *ngIf="!overallStatus" class="center" src="https://upload.wikimedia.org/wikipedia/commons/0/04/Oxygen480-emotes-face-sad.svg">
 </div>

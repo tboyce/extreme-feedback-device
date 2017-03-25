@@ -1,4 +1,63 @@
-body {
-  margin: 0;
-  padding: 0;
+.title {
+  color: white;
+  font-size: 64px;
+  font-family: sans-serif;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -37px;
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -128px;
+  margin-left: -128px;
+}
+
+.tl {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 50%;
+  bottom: 50%;
+  border: 2px solid white;
+}
+
+.tr {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  right: 0;
+  bottom: 50%;
+  border: 2px solid white;
+}
+
+.bl {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 50%;
+  bottom: 0;
+  border: 2px solid white;
+}
+
+.br {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: 0;
+  bottom: 0;
+  border: 2px solid white;
+}
+
+.success {
+  background-color: #004d00;
+}
+
+.failed {
+  background-color: red;
 }

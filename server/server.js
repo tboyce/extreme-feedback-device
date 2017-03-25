@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 
 var builds = require('./routes/builds');
+var deployments = require('./routes/deployments');
 
 var app = express();
 
@@ -17,6 +18,7 @@ app.use('/', express.static('../client/dist'));
 app.use(bodyParser.json());
 
 app.use('/api/v1/builds', builds);
+app.use('/api/v1/deployments', deployments);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

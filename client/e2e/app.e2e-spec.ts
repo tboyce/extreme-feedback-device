@@ -1,10 +1,10 @@
-import { ExtremeFeedbackDevicePage } from './app.po';
+import { Client2Page } from './app.po';
 
-describe('extreme-feedback-device App', function() {
-  let page: ExtremeFeedbackDevicePage;
+describe('client2 App', () => {
+  let page: Client2Page;
 
   beforeEach(() => {
-    page = new ExtremeFeedbackDevicePage();
+    page = new Client2Page();
   });
 
   it('should display message saying app works', () => {

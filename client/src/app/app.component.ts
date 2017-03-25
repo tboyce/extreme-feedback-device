@@ -9,19 +9,33 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent implements OnInit {
 
-  status: string;
+  baseUrl = 'http://xfd.cloudapp.net/api/v1'
+  buildStatus = true;
+  deploymentStatus = true;
+  testStatus = true;
 
   constructor(private http: Http) {
   }
 
   ngOnInit(): void {
-    let url = 'http://tb-authorize.cloudapp.net/api/v1/builds/status';
     Observable.interval(5000)
-      .switchMap(() => this.http.get(url))
+      .switchMap(() => this.http.get(this.baseUrl + '/builds/status'))
       .map(res => res.json())
       .subscribe(res => {
-        this.status = res.status;
+        this.buildStatus = res.buildStatus === 'success';
+        this.testStatus = res.testStatus === 'success';
       });
+
+    Observable.interval(5000)
+      .switchMap(() => this.http.get(this.baseUrl + '/deployments/status'))
+      .map(res => res.json())
+      .subscribe(res => {
+        this.deploymentStatus = res.status === 'success';
+      });
+  }
+
+  get overallStatus() {
+    return (this.buildStatus && this.testStatus && this.deploymentStatus);
   }
 }
 
