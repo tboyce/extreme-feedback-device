@@ -5,7 +5,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  margin-top: -37px;
+  margin-top: -0.5em;
   margin-right: 0;
   margin-bottom: 0;
   text-align: center;
@@ -15,8 +15,9 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  margin-top: -128px;
-  margin-left: -128px;
+  margin-top: -2em;
+  margin-left: -2em;
+  font-size: 64px;
 }
 
 .tl {
@@ -61,4 +62,18 @@
 
 .failed {
   background-color: red;
+}
+
+@media screen and (max-width: 1024px) {
+  .title {
+    font-size: 32px;
+  }
+
+  img {
+    width: 128px;
+  }
+
+  .center {
+    font-size: 32px;
+  }
 }

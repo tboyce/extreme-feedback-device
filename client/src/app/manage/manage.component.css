@@ -1,3 +1,14 @@
 .manage {
-  margin: 30px;
+  margin: 0 30px;
+}
+
+@media screen and (max-device-width: 768px) {
+  .manage {
+    margin: 0 10px;
+  }
+
+  h1,h2,h3,h4,h5,h6 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
 }
