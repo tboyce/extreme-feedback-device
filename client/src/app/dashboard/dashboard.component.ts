@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    Observable.interval(5000)
+    Observable.interval(5000).startWith(0)
       .switchMap(() => this.http.get(this.baseUrl + '/status'))
       .map(res => res.json())
       .subscribe(res => {
