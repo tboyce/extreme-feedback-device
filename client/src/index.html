@@ -10,6 +10,15 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-  <app-root>Loading...</app-root>
+  <app-root onclick="enterFullScreen()">Loading...</app-root>
+
+  <script>
+    function enterFullScreen() {
+         var el = document.getElementById('dashboard');
+         if (el) {
+           el.webkitRequestFullScreen();
+         }
+    }
+  </script>
 </body>
 </html>

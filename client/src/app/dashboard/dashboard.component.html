@@ -1,22 +1,26 @@
-<div class="tl" [class.success]="buildSuccess" [class.failed]="!buildSuccess">
-  <div class="title" style="margin-left: -1.5em">BUILD</div>
-</div>
-
-<div class="tr" [class.success]="deploymentSuccess" [class.failed]="!deploymentSuccess">
-  <div class="title" style="margin-left: -2.0em">DEPLOY</div>
-</div>
-
-<div class="bl" [class.success]="testSuccess" [class.failed]="!testSuccess">
-  <div class="title" style="margin-left: -1.3em">TEST</div>
-</div>
-
-<div class="br" [class.success]="overallSuccess" [class.failed]="!overallSuccess">
-  <div *ngIf="maintenance" class="title" style="margin-left: -3.65em; margin-top: -1.2em;">
-    MAINTENANCE<br/>
-    IN PROGRESS
+<div id="dashboard">
+  <div class="tl" [class.success]="buildSuccess" [class.failed]="!buildSuccess">
+    <div class="title" style="margin-left: -1.5em">BUILD</div>
   </div>
-  <div *ngIf="!maintenance">
-    <img *ngIf="overallSuccess" class="center" src="https://upload.wikimedia.org/wikipedia/commons/d/dc/Oxygen480-emotes-face-smile.svg">
-    <img *ngIf="!overallSuccess" class="center" src="https://upload.wikimedia.org/wikipedia/commons/0/04/Oxygen480-emotes-face-sad.svg">
+
+  <div class="tr" [class.success]="deploymentSuccess" [class.failed]="!deploymentSuccess">
+    <div class="title" style="margin-left: -2.0em">DEPLOY</div>
+  </div>
+
+  <div class="bl" [class.success]="testSuccess" [class.failed]="!testSuccess">
+    <div class="title" style="margin-left: -1.3em">TEST</div>
+  </div>
+
+  <div class="br" [class.success]="overallSuccess" [class.failed]="!overallSuccess">
+    <div *ngIf="maintenance" class="title" style="margin-left: -3.65em; margin-top: -1.2em;">
+      MAINTENANCE<br/>
+      IN PROGRESS
+    </div>
+    <div *ngIf="!maintenance">
+      <img *ngIf="overallSuccess" class="center"
+           src="https://upload.wikimedia.org/wikipedia/commons/d/dc/Oxygen480-emotes-face-smile.svg">
+      <img *ngIf="!overallSuccess" class="center"
+           src="https://upload.wikimedia.org/wikipedia/commons/0/04/Oxygen480-emotes-face-sad.svg">
+    </div>
   </div>
 </div>
