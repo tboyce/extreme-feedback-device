@@ -11,8 +11,14 @@ storage.init().then(function () {
     const storageKey = 'deployments';
 
     router.get('/', function (req, res) {
+        const page = req.query.page;
+        const count = req.query.count;
         storage.getItem(storageKey).then(function (deployments) {
-            return res.send(_.values(deployments || {}));
+            const items = _.values(deployments || {});
+            return res.json({
+                total: items.length,
+                items: _.nth(_.chunk(items, count), page - 1) || []
+            });
         });
     });
 

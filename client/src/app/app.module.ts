@@ -4,6 +4,7 @@ import { ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from '@angular/material';
+import { Ng2PaginationModule } from 'ng2-pagination';
 
 import { AppComponent } from './app.component';
 import { ManageComponent } from './manage/manage.component';
@@ -31,6 +32,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpModule,
     MaterialModule,
+    Ng2PaginationModule,
     RouterModule.forRoot(appRoutes, { useHash: true })
   ],
   providers: [],

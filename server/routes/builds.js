@@ -11,8 +11,14 @@ storage.init().then(function () {
     const storageKey = 'builds';
 
     router.get('/', function (req, res) {
+        const page = req.query.page;
+        const count = req.query.count;
         storage.getItem(storageKey).then(function (builds) {
-            return res.json(_.values(builds || {}));
+            const items = _.values(builds || {});
+            return res.json({
+                total: items.length,
+                items: _.nth(_.chunk(items, count), page - 1) || []
+            });
         });
     });
 
