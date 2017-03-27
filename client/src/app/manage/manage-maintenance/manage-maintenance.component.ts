@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {Http} from '@angular/http';
-import {environment} from '../../../environments/environment';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Http } from '@angular/http';
 
-import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/switchMap';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-manage-maintenance',

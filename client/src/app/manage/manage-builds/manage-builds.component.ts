@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {Http, RequestOptions, URLSearchParams} from '@angular/http';
-import {environment} from '../../../environments/environment';
-import {Observable} from 'rxjs/Observable';
-import {IServerResponse} from '../models/server-response';
-import {IResponseItem} from '../models/response-item';
+import { Component, OnInit } from '@angular/core';
+import { Http, RequestOptions, URLSearchParams } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { environment } from '../../../environments/environment';
+import { IPagedResource } from '../models/paged-resource';
+import { IStatusItem } from '../models/status-item';
 
 @Component({
   selector: 'app-manage-builds',
@@ -13,7 +13,7 @@ import {IResponseItem} from '../models/response-item';
 export class ManageBuildsComponent implements OnInit {
 
   private baseUrl: string;
-  asyncBuilds: Observable<IResponseItem[]>;
+  asyncBuilds: Observable<IStatusItem[]>;
   page = 1;
   itemsPerPage = 10;
   total: number;
@@ -46,7 +46,7 @@ export class ManageBuildsComponent implements OnInit {
 
     this.asyncBuilds = this.http.get(this.baseUrl + '/builds', requestOptions)
       .map(res => res.json())
-      .do((res: IServerResponse) => {
+      .do((res: IPagedResource<IStatusItem>) => {
         this.total = res.total;
         if (page > Math.ceil(this.total / this.itemsPerPage)) {
           this.getPage(page - 1);
