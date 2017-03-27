@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Http, RequestOptions, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
@@ -6,29 +6,33 @@ import { IPagedResource } from '../models/paged-resource';
 import { IStatusItem } from '../models/status-item';
 
 @Component({
-  selector: 'app-manage-builds',
-  templateUrl: './manage-builds.component.html',
-  styleUrls: ['./manage-builds.component.css']
+  selector: 'app-manage-status-items',
+  templateUrl: './manage-status-items.component.html',
+  styleUrls: ['./manage-status-items.component.css']
 })
-export class ManageBuildsComponent implements OnInit {
+export class ManageStatusItemsComponent implements OnInit {
+
+  @Input() resourceName: string;
+  @Input() failedStatus: string;
 
   private baseUrl: string;
-  asyncBuilds: Observable<IStatusItem[]>;
+  asyncStatusItems: Observable<IStatusItem[]>;
   page = 1;
-  itemsPerPage = 10;
+  itemsPerPage: number;
   total: number;
   loading: boolean;
 
   constructor(public http: Http) {
     this.baseUrl = environment.API_BASE_URL;
+    this.itemsPerPage = environment.itemsPerPage;
   }
 
   ngOnInit() {
     this.getPage(this.page);
   }
 
-  deleteBuild(id) {
-    this.http.delete(this.baseUrl + '/builds/' + id)
+  deleteStatusItem(id) {
+    this.http.delete(this.baseUrl + '/' + this.resourceName + '/' + id)
       .subscribe(() => {
         this.getPage(this.page);
       });
@@ -44,7 +48,7 @@ export class ManageBuildsComponent implements OnInit {
     const requestOptions = new RequestOptions();
     requestOptions.search = params;
 
-    this.asyncBuilds = this.http.get(this.baseUrl + '/builds', requestOptions)
+    this.asyncStatusItems = this.http.get(this.baseUrl + '/' + this.resourceName, requestOptions)
       .map(res => res.json())
       .do((res: IPagedResource<IStatusItem>) => {
         this.total = res.total;

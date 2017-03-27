@@ -3,10 +3,10 @@
 
   <md-tab-group>
     <md-tab label="Builds">
-      <app-manage-builds></app-manage-builds>
+      <app-manage-status-items [resourceName]="'builds'" [failedStatus]="'failed'"></app-manage-status-items>
     </md-tab>
     <md-tab label="Deployments">
-      <app-manage-deployments></app-manage-deployments>
+      <app-manage-status-items [resourceName]="'deployments'" [failedStatus]="'DeploymentFailed'"></app-manage-status-items>
     </md-tab>
     <md-tab label="Maintenance">
       <app-manage-maintenance></app-manage-maintenance>

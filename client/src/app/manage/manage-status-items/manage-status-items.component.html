@@ -1,0 +1,23 @@
+<md-list>
+  <md-list-item *ngFor="let item of asyncStatusItems | async | paginate: { id: resourceName, itemsPerPage: itemsPerPage, currentPage: page, totalItems: total }">
+
+    <h3 md-line>
+      {{ item.name }}
+    </h3>
+
+    <md-chip-list>
+      <md-chip [color]="item.status == failedStatus ? 'warn' : 'primary'" selected="true">
+        {{ item.status }}
+      </md-chip>
+    </md-chip-list>
+
+    <md-icon md-list-icon (click)="deleteStatusItem(item.id)">delete</md-icon>
+  </md-list-item>
+</md-list>
+
+<div *ngIf="total > itemsPerPage" class="has-text-centered">
+  <div class="spinner" [ngClass]="{ 'hidden': !loading }"></div>
+  <pagination-controls (pageChange)="getPage($event)" id="{{ resourceName }}"></pagination-controls>
+</div>
+
+<p *ngIf="total === 0">No {{ resourceName }} found</p>
