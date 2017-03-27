@@ -48,8 +48,8 @@ export class ManageBuildsComponent implements OnInit {
       .map(res => res.json())
       .do((res: IServerResponse) => {
         this.total = res.total;
-        if (page > (this.total / this.itemsPerPage) && page > 0) {
-          this.page = page - 1;
+        if (page > Math.ceil(this.total / this.itemsPerPage)) {
+          this.getPage(page - 1);
         } else {
           this.page = page;
         }
