@@ -11,7 +11,7 @@
       </md-chip>
     </md-chip-list>
 
-    <md-icon md-list-icon (click)="deleteStatusItem(item.id)">delete</md-icon>
+    <md-icon md-list-icon (click)="deleteStatusItem(item.id)" md-tooltip="Remove this item" [mdTooltipPosition]="'above'">delete</md-icon>
   </md-list-item>
 </md-list>
 
