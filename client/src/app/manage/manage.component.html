@@ -1,6 +1,8 @@
 <div class="manage">
   <h2>Manage Extreme Feedback</h2>
 
+  <a [routerLink]="['/']" target="_blank">Open dashboard</a>
+
   <md-tab-group>
     <md-tab label="Builds">
       <app-manage-status-items [resourceName]="'builds'" [failedStatus]="'failed'"></app-manage-status-items>
