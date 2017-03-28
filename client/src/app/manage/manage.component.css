@@ -2,6 +2,14 @@
   margin: 0 30px;
 }
 
+#dashboard-link {
+  margin-left: 20px;
+}
+
+md-toolbar {
+  margin-bottom: 20px;
+}
+
 @media screen and (max-device-width: 768px) {
   .manage {
     margin: 0 10px;

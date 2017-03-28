@@ -1,7 +1,9 @@
 <div class="manage">
-  <h2>Manage Extreme Feedback</h2>
+  <md-toolbar color="primary">
+    <span>Manage Extreme Feedback</span>
 
-  <a [routerLink]="['/']" target="_blank">Open dashboard</a>
+    <a id="dashboard-link" md-button [routerLink]="['/']" target="_blank" md-tooltip="Opens in new tab" [mdTooltipPosition]="'right'">Open dashboard</a>
+  </md-toolbar>
 
   <md-tab-group>
     <md-tab label="Builds">
