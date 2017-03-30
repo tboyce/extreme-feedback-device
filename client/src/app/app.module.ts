@@ -5,6 +5,7 @@ import { MaterialModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { Ng2PaginationModule } from 'ng2-pagination';
+import { MomentModule } from 'angular2-moment';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -31,6 +32,7 @@ const appRoutes: Routes = [
     HttpModule,
     MaterialModule,
     Ng2PaginationModule,
+    MomentModule,
     RouterModule.forRoot(appRoutes, {useHash: true})
   ],
   providers: [],

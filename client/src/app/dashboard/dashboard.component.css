@@ -68,6 +68,14 @@
   background-color: red;
 }
 
+.fail-time {
+  color: white;
+  font-size: 18px;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+
 @media screen and (max-width: 1024px) {
   .title {
     font-size: 32px;

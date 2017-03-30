@@ -33,7 +33,8 @@ storage.init().then(function () {
       builds[build.resource.definition.id] = {
         id: build.resource.definition.id,
         name: build.resource.definition.name,
-        status: build.resource.status
+        status: build.resource.status,
+        time: new Date()
       };
       storage.setItem(storageKey, builds);
       res.sendStatus(200);

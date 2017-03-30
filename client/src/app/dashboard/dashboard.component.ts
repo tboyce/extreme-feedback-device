@@ -20,6 +20,10 @@ export class DashboardComponent implements OnInit {
   testSuccess = true;
   maintenance = false;
 
+  buildFailedTime: Date;
+  deploymentFailedTime: Date;
+  testFailedTime: Date;
+
   constructor(private http: Http) {
   }
 
@@ -32,6 +36,9 @@ export class DashboardComponent implements OnInit {
         this.testSuccess = res.test === 'success';
         this.deploymentSuccess = res.deployment === 'success';
         this.maintenance = res.maintenance;
+        this.buildFailedTime = res.buildFailedTime;
+        this.deploymentFailedTime = res.deploymentFailedTime;
+        this.testFailedTime = res.testFailedTime;
       });
   }
 

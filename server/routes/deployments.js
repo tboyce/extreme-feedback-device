@@ -28,7 +28,8 @@ storage.init().then(function () {
       deployments[event.RelatedDocumentIds[1]] = {
         id: event.RelatedDocumentIds[1],
         name: event.RelatedDocumentIds[1],
-        status: event.Category
+        status: event.Category,
+        time: new Date()
       };
       storage.setItem(storageKey, deployments);
       res.sendStatus(200);

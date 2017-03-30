@@ -11,24 +11,39 @@ storage.init().then(function () {
     const deployments = storage.getItemSync('deployments');
     const maintenance = storage.getItemSync('maintenance');
 
-    const failedBuild = _.some(builds, function (b) {
+    const sortedBuilds = _.sortBy(builds, 'time');
+    const sortedDeployments = _.sortBy(deployments, 'time');
+
+    const failedBuild = _.first(_.filter(sortedBuilds, function (b) {
       return b.status === 'failed' && (patterns.buildRegex.test(b.name));
-    });
+    }));
 
-    const failedTest = _.some(builds, function (b) {
+    const failedTest = _.first(_.filter(sortedBuilds, function (b) {
       return b.status === 'failed' && (patterns.testRegex.test(b.name));
-    });
+    }));
 
-    const failedDeployment = _.some(deployments, function (d) {
+    const failedDeployment = _.first(_.filter(sortedDeployments, function (d) {
       return d.status === 'DeploymentFailed';
-    });
+    }));
 
-    return res.json({
+    var status = {
       build: failedBuild ? 'failed' : 'success',
       test: failedTest ? 'failed' : 'success',
       deployment: failedDeployment ? 'failed' : 'success',
       maintenance: maintenance || false
-    });
+    };
+
+    if (failedBuild) {
+      status.buildFailedTime = failedBuild.time
+    }
+    if (failedTest) {
+      status.testFailedTime = failedTest.time;
+    }
+    if (failedDeployment) {
+      status.deploymentFailedTime = failedDeployment.time;
+    }
+
+    return res.json(status);
   });
 
 });
