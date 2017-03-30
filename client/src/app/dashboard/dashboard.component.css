@@ -70,10 +70,10 @@
 
 .fail-time {
   color: white;
-  font-size: 18px;
+  font-size: 24px;
   position: absolute;
-  right: 10px;
-  bottom: 10px;
+  right: 20px;
+  bottom: 20px;
 }
 
 @media screen and (max-width: 1024px) {
