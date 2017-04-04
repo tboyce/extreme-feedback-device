@@ -5,6 +5,7 @@ const storage = require('node-persist');
 const router = express.Router();
 const jsonParser = bodyParser.json();
 const patterns = require('../patterns');
+const config = require('../config');
 
 storage.init().then(function () {
   const storageKey = 'builds';
@@ -21,7 +22,10 @@ storage.init().then(function () {
 
       return res.json({
         total: filteredItems.length,
-        items: _.nth(_.chunk(filteredItems, count), page - 1) || []
+        items: _.map(_.nth(_.chunk(filteredItems, count), page - 1) || [], function(build) {
+          build.url = config.builds_base_url + build.id;
+          return build;
+        })
       });
     });
   });

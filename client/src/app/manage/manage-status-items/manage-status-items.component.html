@@ -2,7 +2,7 @@
   <md-list-item *ngFor="let item of asyncStatusItems | async | paginate: { id: resourceName, itemsPerPage: itemsPerPage, currentPage: page, totalItems: total }">
 
     <h3 md-line>
-      {{ item.name }}
+      <a href="{{item.url}}" target="_blank">{{ item.name }}</a>
     </h3>
 
     <md-chip-list>

@@ -4,6 +4,7 @@ const _ = require('lodash');
 const storage = require('node-persist');
 const router = express.Router();
 const jsonParser = bodyParser.json();
+const config = require('../config');
 
 storage.init().then(function () {
   const storageKey = 'deployments';
@@ -15,7 +16,10 @@ storage.init().then(function () {
       const items = _.sortBy(_.values(deployments || {}), 'name');
       return res.json({
         total: items.length,
-        items: _.nth(_.chunk(items, count), page - 1) || []
+        items: _.map(_.nth(_.chunk(items, count), page - 1) || [], function(deployment) {
+          deployment.url = config.deployments_base_url + deployment.id;
+          return deployment;
+        })
       });
     });
   });
