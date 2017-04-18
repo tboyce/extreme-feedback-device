@@ -1,2 +1,6 @@
 .idea/
 .swp
+
+*.crt
+*.key
+*.pfx
