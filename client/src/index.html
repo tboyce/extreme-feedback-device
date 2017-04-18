@@ -10,14 +10,11 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-  <app-root onclick="enterFullScreen()">Loading...</app-root>
+  <app-root onclick="manage()">Loading...</app-root>
 
   <script>
-    function enterFullScreen() {
-         var el = document.getElementById('dashboard');
-         if (el) {
-           el.webkitRequestFullScreen();
-         }
+    function manage() {
+      window.open('/#/manage');
     }
   </script>
 </body>
