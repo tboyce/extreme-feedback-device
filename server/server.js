@@ -7,6 +7,7 @@ const maintenance = require('./routes/maintenance');
 const status = require('./routes/status');
 
 var fs = require('fs');
+var http = require('http');
 var https = require('https');
 var config = require('./config');
 
@@ -39,26 +40,18 @@ app.use(function (req, res, next) {
 function setup(ssl) {
   if (ssl && ssl.active) {
     return {
+      port: ssl.port,
       key: fs.readFileSync(ssl.key),
       cert: fs.readFileSync(ssl.certificate)
     };
   }
 }
 
-function start(app, options) {
-  if (options)
-    return require('https').createServer(options, app);
+var sslOptions = setup(config.ssl);
 
-  return require('http').createServer(app);
+if (sslOptions) {
+  https.createServer(sslOptions, app).listen(sslOptions.port);
 }
-
-var options = setup(config.ssl);
-
-var server = start(app, options).listen(config.port, function () {
-  const host = 'localhost';
-  const port = server.address().port;
-  const scheme = config.ssl.active ? 'https' : 'http';
-  console.log('App listening at %s://%s:%s', scheme, host, port);
-});
+http.createServer(app).listen(config.port);
 
 module.exports = app;

@@ -3,6 +3,7 @@ module.exports = {
   deployments_base_url: 'http://deployments/',
   ssl: {
     active: true,
+    port: 443,
     key: 'server.key',
     certificate: 'server.crt'
   },
