@@ -46,4 +46,8 @@ export class DashboardComponent implements OnInit {
     return (this.buildSuccess && this.testSuccess && this.deploymentSuccess && !this.maintenance);
   }
 
+  manage() {
+    window.open('/#/manage');
+  }
+
 }
