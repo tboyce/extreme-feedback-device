@@ -1,16 +1,19 @@
 <div id="dashboard" (click)="manage()">
   <div class="tl" [class.success]="buildSuccess" [class.failed]="!buildSuccess">
     <div class="title" style="margin-left: -1.5em">BUILD</div>
+    <div class="fail-name" *ngIf="buildFailedName">{{ buildFailedName }}</div>
     <div class="fail-time" *ngIf="buildFailedTime">{{ buildFailedTime | amTimeAgo }}</div>
   </div>
 
   <div class="tr" [class.success]="deploymentSuccess" [class.failed]="!deploymentSuccess">
     <div class="title" style="margin-left: -2.0em">DEPLOY</div>
+    <div class="fail-name" *ngIf="deploymentFailedName">{{ deploymentFailedName }}</div>
     <div class="fail-time" *ngIf="deploymentFailedTime">{{ deploymentFailedTime | amTimeAgo }}</div>
   </div>
 
   <div class="bl" [class.success]="testSuccess" [class.failed]="!testSuccess">
     <div class="title" style="margin-left: -1.3em">TEST</div>
+    <div class="fail-name" *ngIf="testFailedTime">{{ testFailedTime }}</div>
     <div class="fail-time" *ngIf="testFailedTime">{{ testFailedTime | amTimeAgo }}</div>
   </div>
 

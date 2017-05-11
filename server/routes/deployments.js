@@ -26,6 +26,7 @@ storage.init().then(function () {
 
   router.post('/', jsonParser, function (req, res) {
     const deployment = req.body;
+    console.log('deployment', deployment);
     storage.getItem(storageKey).then(function (deployments) {
       deployments = deployments || {};
       const event = deployment.Payload.Event;
@@ -33,7 +34,8 @@ storage.init().then(function () {
         id: event.RelatedDocumentIds[1],
         name: event.RelatedDocumentIds[1],
         status: event.Category,
-        time: new Date()
+        time: new Date(),
+        requestedFor: event.Username
       };
       storage.setItem(storageKey, deployments);
       res.sendStatus(200);

@@ -34,13 +34,16 @@ storage.init().then(function () {
     };
 
     if (failedBuild) {
-      status.buildFailedTime = failedBuild.time
+      status.buildFailedTime = failedBuild.time;
+      status.buildFailedName = failedBuild.requestedFor;
     }
     if (failedTest) {
       status.testFailedTime = failedTest.time;
+      status.testFailedName = failedTest.requestedFor;
     }
     if (failedDeployment) {
       status.deploymentFailedTime = failedDeployment.time;
+      status.deploymentFailedName = failedDeployment.requestedFor;
     }
 
     return res.json(status);
