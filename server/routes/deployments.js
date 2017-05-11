@@ -5,6 +5,7 @@ const storage = require('node-persist');
 const router = express.Router();
 const jsonParser = bodyParser.json();
 const config = require('../config');
+const request = require('request');
 
 storage.init().then(function () {
   const storageKey = 'deployments';
@@ -16,7 +17,7 @@ storage.init().then(function () {
       const items = _.sortBy(_.values(deployments || {}), 'name');
       return res.json({
         total: items.length,
-        items: _.map(_.nth(_.chunk(items, count), page - 1) || [], function(deployment) {
+        items: _.map(_.nth(_.chunk(items, count), page - 1) || [], function (deployment) {
           deployment.url = config.deployments_base_url + deployment.id;
           return deployment;
         })
@@ -26,19 +27,34 @@ storage.init().then(function () {
 
   router.post('/', jsonParser, function (req, res) {
     const deployment = req.body;
-    console.log('deployment', deployment);
     storage.getItem(storageKey).then(function (deployments) {
       deployments = deployments || {};
       const event = deployment.Payload.Event;
-      deployments[event.RelatedDocumentIds[1]] = {
+      const project = event.RelatedDocumentIds[1];
+
+      deployments[project] = {
         id: event.RelatedDocumentIds[1],
         name: event.RelatedDocumentIds[1],
         status: event.Category,
         time: new Date(),
         requestedFor: event.Username
       };
-      storage.setItem(storageKey, deployments);
-      res.sendStatus(200);
+
+      var options = {
+        url: config.octopus.url + '/projects/' + project,
+        headers: {
+          'X-Octopus-ApiKey': config.octopus.key
+        }
+      };
+
+      request.get(options, function (error, response, body) {
+        if (!error && body) {
+          var detail = JSON.parse(body);
+          deployments[project].name = detail.Name;
+        }
+        storage.setItem(storageKey, deployments);
+        res.sendStatus(200);
+      });
     });
   });
 
