@@ -13,7 +13,7 @@
 
   <div class="bl" [class.success]="testSuccess" [class.failed]="!testSuccess">
     <div class="title" style="margin-left: -1.3em">TEST</div>
-    <div class="fail-name" *ngIf="testFailedTime">{{ testFailedTime }}</div>
+    <div class="fail-name" *ngIf="testFailedName">{{ testFailedName }}</div>
     <div class="fail-time" *ngIf="testFailedTime">{{ testFailedTime | amTimeAgo }}</div>
   </div>
 
