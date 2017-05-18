@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+
+  client:
+    container_name: client
+    image: nginx:1.13.0
+    build:
+      context: ./client
+      dockerfile: .docker/nginx.dockerfile
+    ports:
+      - "80:80"
+
+  server:
+    container_name: server
+    image: node:7.10.0
+    build:
+      context: ./server
+      dockerfile: .docker/node.dockerfile
+    ports:
+      - "3000:3000"
