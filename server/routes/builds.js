@@ -21,9 +21,13 @@ storage.init().then(function () {
         return patterns.testRegex.test(item.name) || patterns.buildRegex.test(item.name);
       });
 
+      const sortedItems = _.orderBy(filteredItems, [function(item) {
+        return item.status !== 'failed';
+      }, 'name']);
+
       return res.json({
         total: filteredItems.length,
-        items: _.map(_.nth(_.chunk(filteredItems, count), page - 1) || [], function (build) {
+        items: _.map(_.nth(_.chunk(sortedItems, count), page - 1) || [], function (build) {
           build.url = config.builds_base_url + build.id;
           return build;
         })
