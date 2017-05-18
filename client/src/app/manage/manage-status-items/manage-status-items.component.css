@@ -1,8 +1,8 @@
-.mat-icon:hover {
+.icon:hover {
   cursor: pointer;
   color: #e91e63;
 }
 
-md-list {
+.list {
   max-width: 500px;
 }
