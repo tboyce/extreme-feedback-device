@@ -68,19 +68,18 @@
   background-color: red;
 }
 
-.fail-time {
+.fail-time, .fail-name {
   color: white;
   font-size: 24px;
   position: absolute;
   right: 20px;
+}
+
+.fail-time {
   bottom: 20px;
 }
 
 .fail-name {
-  color: white;
-  font-size: 24px;
-  position: absolute;
-  right: 20px;
   bottom: 48px;
 }
 
@@ -95,5 +94,25 @@
 
   .center {
     font-size: 32px;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .title {
+    font-size: 24px;
+  }
+
+  .fail-time, .fail-name {
+    font-size: 14px;
+    position: absolute;
+    right: 10px;
+  }
+
+  .fail-time {
+    bottom: 10px;
+  }
+
+  .fail-name {
+    bottom: 28px;
   }
 }
