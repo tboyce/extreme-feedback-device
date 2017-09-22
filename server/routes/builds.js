@@ -28,7 +28,6 @@ storage.init().then(function () {
       return res.json({
         total: filteredItems.length,
         items: _.map(_.nth(_.chunk(sortedItems, count), page - 1) || [], function (build) {
-          build.url = config.builds_base_url + build.id;
           return build;
         })
       });
@@ -44,12 +43,14 @@ storage.init().then(function () {
         id: build.resource.definition.id,
         name: build.resource.definition.name,
         status: build.resource.status,
-        time: new Date()
+        time: new Date(),
+        url: build.resource.url
       };
 
-      request.get(build.resource.url, config.tfs, function (error, response, body) {
+      request.get(build.resource.url, function (error, response, body) {
         if (!error && body) {
           var buildDetail = JSON.parse(body);
+          console.log(buildDetail);
           if (buildDetail.requestedFor) {
             builds[build.resource.definition.id].requestedFor = buildDetail.requestedFor.displayName;
           } else if (buildDetail.requestedBy) {
@@ -58,7 +59,7 @@ storage.init().then(function () {
         }
         storage.setItem(storageKey, builds);
         res.sendStatus(200);
-      });
+      }).auth(config.tfs.username, config.tfs.token, true);
     });
   });
 

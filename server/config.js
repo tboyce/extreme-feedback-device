@@ -1,6 +1,12 @@
 module.exports = {
-  builds_base_url: 'http://builds/',
-  deployments_base_url: 'http://deployments/',
+  tfs: {
+    username: 'test',
+    token: 'test'
+  },
+  octopus: {
+    url: 'http://deployments',
+    key: 'test'
+  },
   ssl: {
     active: false,
     port: 443,

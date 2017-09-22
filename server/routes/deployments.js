@@ -16,14 +16,14 @@ storage.init().then(function () {
     storage.getItem(storageKey).then(function (deployments) {
       const items = _.sortBy(_.values(deployments || {}), 'name');
 
-      const sortedItems = _.orderBy(items, [function(item) {
+      const sortedItems = _.orderBy(items, [function (item) {
         return item.status !== 'DeploymentFailed';
       }, 'name']);
 
       return res.json({
         total: items.length,
         items: _.map(_.nth(_.chunk(sortedItems, count), page - 1) || [], function (deployment) {
-          deployment.url = config.deployments_base_url + deployment.id;
+          deployment.url = config.octopus.url + deployment.id;
           return deployment;
         })
       });
