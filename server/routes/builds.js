@@ -50,7 +50,6 @@ storage.init().then(function () {
       request.get(build.resource.url, function (error, response, body) {
         if (!error && body) {
           var buildDetail = JSON.parse(body);
-          console.log(buildDetail);
           if (buildDetail.requestedFor) {
             builds[build.resource.definition.id].requestedFor = buildDetail.requestedFor.displayName;
           } else if (buildDetail.requestedBy) {
